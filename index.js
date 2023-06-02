@@ -19,12 +19,6 @@ app.use((req, res, next) => {
   next();
 });
 
-const PORT = 4000;
-
-app.listen(PORT, () => {
-  console.log(`Rodando com Express na porta ${PORT}`);
-});
-
 app.get('/views/users', async (req, res) => {
   try {
     const users = await UserModel.find({});
@@ -82,7 +76,12 @@ app.delete('/users/:id', async (req, res) => {
   }
 });
 
+const PORT = process.env.PORT || 4000;
+
+app.listen(PORT, () => {
+  console.log(`Rodando com Express na porta ${PORT}`);
+});
+
 app.get('/', (req, res) => {
   res.send('API funcionando!!!');
 });
-
