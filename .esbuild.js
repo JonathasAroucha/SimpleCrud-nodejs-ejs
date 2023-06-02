@@ -11,4 +11,5 @@ build({
   entryPoints: [entryPoint],
   bundle: true,
   outfile: "dist/bundle.js",
+  platform: 'node', 
 }).catch(() => process.exit(1));
