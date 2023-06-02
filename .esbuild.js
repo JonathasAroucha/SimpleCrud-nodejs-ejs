@@ -1,11 +1,8 @@
-const { build } = require("esbuild");
+import { build } from "esbuild";
 
 build({
-  entryPoints: ["src"],
+  // configurações do esbuild
+  entryPoints: ["src/index.js"],
   bundle: true,
-  target: "node14",
   outfile: "dist/bundle.js",
-  loader: {
-    ".ejs": "text",
-  },
 }).catch(() => process.exit(1));
