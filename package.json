@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "curso de nodejs",
   "main": "index.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
-    "vercel-build": "npx prisma migrate deploy"
+    "start": "node index.js"
   },
   "author": "jonathas.aroucha",
   "license": "ISC",
