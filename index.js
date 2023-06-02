@@ -1,14 +1,81 @@
-//const { Person } = require('./person')
-const dotenv = require('dotenv')
-const connectToDatabase = require('./src/database/connect')
+import dotenv from 'dotenv';
+import express from 'express';
+import connectToDatabase from './src/database/connect.js';
+import UserModel from './src/models/user.model.js';
 
+dotenv.config();
+connectToDatabase();
 
-dotenv.config()
-connectToDatabase()
-require('./modules/express')
+const app = express();
+app.use(express.json());
 
-//require('./modules/path')
-//require('./modules/fs')
-//require('./modules/http')
-//const person = new Person('Jonathas')
+app.set('view engine', 'ejs');
+app.set('views', 'src/views');
 
+app.use((req, res, next) => {
+  console.log(`Request Type: ${req.method}`);
+  console.log(`Content Type: ${req.headers['content-type']}`);
+  console.log(`Date: ${new Date()}`);
+  next();
+});
+
+app.get('/views/users', async (req, res) => {
+  try {
+    const users = await UserModel.find({});
+    res.render('index', { users });
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+app.get('/users', async (req, res) => {
+  try {
+    const users = await UserModel.find({});
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+app.get('/users/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const users = await UserModel.findById(id);
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+app.post('/users', async (req, res) => {
+  try {
+    const users = await UserModel.create(req.body);
+    res.status(201).json(users);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+app.patch('/users/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const users = await UserModel.findByIdAndUpdate(id, req.body, { new: true });
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+app.delete('/users/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const users = await UserModel.findByIdAndRemove(id, req.body, { new: true });
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+const port = process.env.PORT || 8080;
+
+app.listen(port, () => console.log(`Rodando com Express na porta ${port}`));
