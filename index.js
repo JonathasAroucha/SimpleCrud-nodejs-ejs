@@ -76,6 +76,11 @@ app.delete('/users/:id', async (req, res) => {
   }
 });
 
-const port = process.env.PORT || 8080;
+const PORT = 4000;
 
-app.listen(port, () => console.log(`Rodando com Express na porta ${port}`));
+app.listen(PORT, () => {
+  console.log(`Rodando com Express na porta ${PORT}`)
+})
+app.get('/', (req, res) => {
+  res.send('API funcionando!!!')
+})
