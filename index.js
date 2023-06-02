@@ -19,6 +19,12 @@ app.use((req, res, next) => {
   next();
 });
 
+const PORT = 4000;
+
+app.listen(PORT, () => {
+  console.log(`Rodando com Express na porta ${PORT}`);
+});
+
 app.get('/views/users', async (req, res) => {
   try {
     const users = await UserModel.find({});
@@ -80,8 +86,3 @@ app.get('/', (req, res) => {
   res.send('API funcionando!!!');
 });
 
-const PORT = 4000;
-
-app.listen(PORT, () => {
-  console.log(`Rodando com Express na porta ${PORT}`);
-});
