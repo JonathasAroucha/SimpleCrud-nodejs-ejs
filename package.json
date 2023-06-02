@@ -11,7 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "build": "esbuild src --bundle --target=node18 --loader:.ejs=text"
+    "build": "esbuild src --bundle --target=node14 --loader:.ejs=text --loader:../views=.ejs --loader:../views/Partials=.ejs"
   },
   "author": "jonathas.aroucha",
   "license": "ISC",
